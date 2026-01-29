@@ -1,8 +1,11 @@
 import { useState, useRef, useEffect } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import BacchanaliaSection from "@/components/BacchanaliaSection";
 import ProvisionsSection from "@/components/ProvisionsSection";
+import TeamSection from "@/components/TeamSection";
+import GallerySection from "@/components/GallerySection";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -10,6 +13,11 @@ const Index = () => {
   
   const bacchanaliaRef = useRef<HTMLDivElement>(null);
   const provisionsRef = useRef<HTMLDivElement>(null);
+  const teamRef = useRef<HTMLDivElement>(null);
+  const galleryRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll();
+  const progressBarWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   const scrollToSection = (section: "home" | "bacchanalia" | "provisions") => {
     setActiveSection(section);
@@ -46,6 +54,12 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Progress Bar */}
+      <motion.div
+        className="fixed top-0 left-0 h-[2px] bg-gold z-[60]"
+        style={{ width: progressBarWidth }}
+      />
+      
       <Header activeSection={activeSection} onNavigate={scrollToSection} />
       
       <main>
@@ -53,6 +67,14 @@ const Index = () => {
         
         <div ref={bacchanaliaRef}>
           <BacchanaliaSection />
+        </div>
+
+        <div ref={teamRef}>
+          <TeamSection />
+        </div>
+
+        <div ref={galleryRef}>
+          <GallerySection />
         </div>
         
         <div ref={provisionsRef}>
