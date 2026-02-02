@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Clock, MapPin, Phone, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Link } from "react-router-dom";
 import dishImage from "@/assets/dish-1.jpg";
 
 const BacchanaliaSection = () => {
@@ -302,17 +303,18 @@ const BacchanaliaSection = () => {
             transition={{ delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Button
-              size="lg"
-              className="bg-gold hover:bg-gold/90 text-charcoal font-medium"
-              onClick={() => window.open("https://resy.com", "_blank")}
-            >
-              Book on Resy
-            </Button>
+            <Link to="/reservations">
+              <Button
+                size="lg"
+                className="bg-gold hover:bg-gold-muted text-charcoal font-medium transition-all duration-300 hover:shadow-elegant hover:scale-105"
+              >
+                Book a Table
+              </Button>
+            </Link>
             <Button
               variant="outline"
               size="lg"
-              className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
+              className="border-primary-foreground/30 text-primary-foreground hover:bg-gold hover:border-gold hover:text-charcoal transition-all duration-300"
               onClick={() => window.location.href = "tel:4043650410"}
             >
               <Phone className="w-4 h-4 mr-2" />

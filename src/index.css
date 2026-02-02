@@ -216,4 +216,35 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  /* Enhanced button hover states */
+  .btn-gold-hover {
+    @apply transition-all duration-300;
+  }
+
+  .btn-gold-hover:hover {
+    background-color: hsl(var(--gold));
+    border-color: hsl(var(--gold));
+    color: hsl(var(--charcoal));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px -8px hsl(var(--gold) / 0.4);
+  }
+
+  /* Form input focus states */
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+    border-color: hsl(var(--gold));
+    box-shadow: 0 0 0 3px hsl(var(--gold) / 0.1);
+  }
+
+  /* Calendar styling */
+  .rdp-day_selected {
+    background-color: hsl(var(--primary)) !important;
+  }
+
+  .rdp-day_selected:hover {
+    background-color: hsl(var(--burgundy-light)) !important;
+  }
 }
