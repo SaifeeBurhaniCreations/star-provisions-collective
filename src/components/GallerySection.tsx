@@ -15,8 +15,8 @@ const GallerySection = () => {
 
   const galleryImages = [
     { src: gallery1, alt: "Beef tenderloin with red wine reduction", category: "Cuisine" },
-    { src: gallery3, alt: "Private dining room", category: "Interior" },
     { src: gallery2, alt: "Chocolate soufflé dessert", category: "Cuisine" },
+    { src: gallery3, alt: "Private dining room", category: "Interior" },
     { src: gallery4, alt: "Fresh oysters on ice", category: "Cuisine" },
     { src: gallery5, alt: "Wine cellar", category: "Interior" },
     { src: gallery6, alt: "Herb-crusted lamb", category: "Cuisine" },
@@ -29,18 +29,19 @@ const GallerySection = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.08,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
+    hidden: { opacity: 0, scale: 0.95, y: 20 },
     visible: {
       opacity: 1,
       scale: 1,
+      y: 0,
       transition: {
-        duration: 0.5,
+        duration: 0.6,
         ease: [0.25, 0.46, 0.45, 0.94] as const,
       },
     },
@@ -88,44 +89,40 @@ const GallerySection = () => {
           />
         </motion.div>
 
-        {/* Masonry-style Gallery Grid */}
+        {/* Fixed Grid Gallery - 4 columns, 2 rows */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4"
+          className="grid grid-cols-2 md:grid-cols-4 gap-4"
         >
           {galleryImages.map((image, idx) => (
             <motion.div
               key={idx}
               variants={itemVariants}
-              whileHover={{ scale: 1.02, zIndex: 10 }}
+              whileHover={{ scale: 1.03, zIndex: 10 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => setSelectedImage(idx)}
-              className={`relative cursor-pointer overflow-hidden group ${
-                idx === 0 || idx === 5 ? "row-span-2" : ""
-              } ${idx === 1 ? "col-span-2" : ""}`}
+              className="relative cursor-pointer overflow-hidden group aspect-square"
             >
-              <div className={`w-full ${idx === 0 || idx === 5 ? "h-full" : "aspect-square"} overflow-hidden`}>
-                <motion.img
-                  src={image.src}
-                  alt={image.alt}
-                  className="w-full h-full object-cover"
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.6 }}
-                />
-              </div>
+              <motion.img
+                src={image.src}
+                alt={image.alt}
+                className="w-full h-full object-cover"
+                whileHover={{ scale: 1.1 }}
+                transition={{ duration: 0.6 }}
+              />
               
               {/* Overlay */}
               <motion.div
                 initial={{ opacity: 0 }}
                 whileHover={{ opacity: 1 }}
                 transition={{ duration: 0.3 }}
-                className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent flex items-end p-4"
+                className="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/40 to-transparent flex items-end p-4"
               >
                 <div>
-                  <span className="text-gold text-xs tracking-wider uppercase">
+                  <span className="text-gold text-xs tracking-wider uppercase font-medium">
                     {image.category}
                   </span>
                   <p className="text-primary-foreground text-sm mt-1">
@@ -139,9 +136,9 @@ const GallerySection = () => {
                 initial={{ opacity: 0, scale: 0 }}
                 whileHover={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3 }}
-                className="absolute top-3 right-3 w-8 h-8 border border-gold/50 flex items-center justify-center"
+                className="absolute top-3 right-3 w-10 h-10 border-2 border-gold/60 flex items-center justify-center bg-charcoal/50 backdrop-blur-sm"
               >
-                <span className="text-gold text-xs">+</span>
+                <span className="text-gold text-lg font-light">+</span>
               </motion.div>
             </motion.div>
           ))}
@@ -154,7 +151,7 @@ const GallerySection = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 bg-charcoal/95 backdrop-blur-sm flex items-center justify-center p-4"
+              className="fixed inset-0 z-50 bg-charcoal/98 backdrop-blur-md flex items-center justify-center p-4"
               onClick={() => setSelectedImage(null)}
             >
               {/* Close Button */}
@@ -162,7 +159,8 @@ const GallerySection = () => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="absolute top-6 right-6 text-primary-foreground hover:text-gold transition-colors z-50"
+                whileHover={{ scale: 1.1 }}
+                className="absolute top-6 right-6 text-primary-foreground hover:text-gold transition-colors z-50 p-2"
                 onClick={() => setSelectedImage(null)}
               >
                 <X className="w-8 h-8" />
@@ -173,26 +171,28 @@ const GallerySection = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                className="absolute left-4 md:left-8 text-primary-foreground hover:text-gold transition-colors z-50"
+                whileHover={{ scale: 1.1, x: -5 }}
+                className="absolute left-4 md:left-8 text-primary-foreground hover:text-gold transition-colors z-50 p-3 bg-charcoal/50 backdrop-blur-sm"
                 onClick={(e) => {
                   e.stopPropagation();
                   navigateGallery("prev");
                 }}
               >
-                <ChevronLeft className="w-10 h-10" />
+                <ChevronLeft className="w-8 h-8" />
               </motion.button>
 
               <motion.button
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 20 }}
-                className="absolute right-4 md:right-8 text-primary-foreground hover:text-gold transition-colors z-50"
+                whileHover={{ scale: 1.1, x: 5 }}
+                className="absolute right-4 md:right-8 text-primary-foreground hover:text-gold transition-colors z-50 p-3 bg-charcoal/50 backdrop-blur-sm"
                 onClick={(e) => {
                   e.stopPropagation();
                   navigateGallery("next");
                 }}
               >
-                <ChevronRight className="w-10 h-10" />
+                <ChevronRight className="w-8 h-8" />
               </motion.button>
 
               {/* Image */}
@@ -213,13 +213,16 @@ const GallerySection = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="text-center mt-4"
+                  className="text-center mt-6"
                 >
-                  <span className="text-gold text-sm tracking-wider uppercase">
+                  <span className="text-gold text-sm tracking-widest uppercase">
                     {galleryImages[selectedImage].category}
                   </span>
-                  <p className="text-primary-foreground mt-1">
+                  <p className="text-primary-foreground text-lg mt-2 font-serif">
                     {galleryImages[selectedImage].alt}
+                  </p>
+                  <p className="text-primary-foreground/50 text-sm mt-2">
+                    {selectedImage + 1} / {galleryImages.length}
                   </p>
                 </motion.div>
               </motion.div>

@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -70,24 +71,22 @@ const Footer = () => {
                   <p className="text-primary-foreground/50">Closed Sundays</p>
                 </div>
               </div>
-              <motion.div
-                whileHover={{ x: 3 }}
-                className="flex items-center gap-2"
+              <motion.a
+                href="tel:4043650410"
+                whileHover={{ x: 3, color: "hsl(var(--gold))" }}
+                className="flex items-center gap-2 transition-colors"
               >
                 <Phone className="w-4 h-4" />
-                <a href="tel:4043650410" className="hover:text-primary-foreground transition-colors">
-                  404.365.0410 ext. 2
-                </a>
-              </motion.div>
-              <motion.div
-                whileHover={{ x: 3 }}
-                className="flex items-center gap-2"
+                404.365.0410 ext. 2
+              </motion.a>
+              <motion.a
+                href="mailto:office@eatoutoften.net"
+                whileHover={{ x: 3, color: "hsl(var(--gold))" }}
+                className="flex items-center gap-2 transition-colors"
               >
                 <Mail className="w-4 h-4" />
-                <a href="mailto:office@eatoutoften.net" className="hover:text-primary-foreground transition-colors">
-                  office@eatoutoften.net
-                </a>
-              </motion.div>
+                office@eatoutoften.net
+              </motion.a>
             </div>
           </motion.div>
 
@@ -103,15 +102,14 @@ const Footer = () => {
                   <p className="text-primary-foreground/50">Closed Mondays</p>
                 </div>
               </div>
-              <motion.div
-                whileHover={{ x: 3 }}
-                className="flex items-center gap-2"
+              <motion.a
+                href="tel:4043650410"
+                whileHover={{ x: 3, color: "hsl(var(--gold))" }}
+                className="flex items-center gap-2 transition-colors"
               >
                 <Phone className="w-4 h-4" />
-                <a href="tel:4043650410" className="hover:text-primary-foreground transition-colors">
-                  404.365.0410 ext. 4
-                </a>
-              </motion.div>
+                404.365.0410 ext. 4
+              </motion.a>
             </div>
           </motion.div>
         </motion.div>
@@ -135,23 +133,24 @@ const Footer = () => {
         >
           <p>© {currentYear} Star Provisions. All rights reserved.</p>
           <div className="flex gap-6">
+            <Link to="/private-events">
+              <motion.span
+                whileHover={{ y: -2, color: "hsl(var(--gold))" }}
+                className="transition-colors cursor-pointer"
+              >
+                Private Events
+              </motion.span>
+            </Link>
             <motion.a
               href="#"
-              whileHover={{ y: -2, color: "hsl(var(--primary-foreground))" }}
-              className="transition-colors"
-            >
-              Private Events
-            </motion.a>
-            <motion.a
-              href="#"
-              whileHover={{ y: -2, color: "hsl(var(--primary-foreground))" }}
+              whileHover={{ y: -2, color: "hsl(var(--gold))" }}
               className="transition-colors"
             >
               Gift Cards
             </motion.a>
             <motion.a
               href="mailto:aquatrano@eatoutoften.net"
-              whileHover={{ y: -2, color: "hsl(var(--primary-foreground))" }}
+              whileHover={{ y: -2, color: "hsl(var(--gold))" }}
               className="transition-colors"
             >
               Careers

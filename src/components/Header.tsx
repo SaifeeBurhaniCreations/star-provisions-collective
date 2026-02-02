@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 interface HeaderProps {
   activeSection: "home" | "bacchanalia" | "provisions";
@@ -82,21 +83,20 @@ const Header = ({ activeSection, onNavigate }: HeaderProps) => {
                 {item.label}
               </button>
             ))}
-            <Button
-              variant="outline"
-              size="sm"
-              className={`ml-4 transition-all duration-300 ${
-                isScrolled || activeSection !== "home"
-                  ? "border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-                  : "border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10"
-              }`}
-              onClick={() =>
-                window.open("https://resy.com", "_blank")
-              }
-            >
-              <Phone className="w-4 h-4 mr-2" />
-              Reserve
-            </Button>
+            <Link to="/reservations">
+              <Button
+                variant="outline"
+                size="sm"
+                className={`ml-4 transition-all duration-300 group ${
+                  isScrolled || activeSection !== "home"
+                    ? "border-primary text-primary hover:bg-gold hover:border-gold hover:text-charcoal"
+                    : "border-primary-foreground/50 text-primary-foreground hover:bg-gold hover:border-gold hover:text-charcoal"
+                }`}
+              >
+                <Phone className="w-4 h-4 mr-2 group-hover:animate-pulse" />
+                Reserve
+              </Button>
+            </Link>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -150,14 +150,15 @@ const Header = ({ activeSection, onNavigate }: HeaderProps) => {
                     {item.label}
                   </button>
                 ))}
-                <Button
-                  variant="outline"
-                  className="mt-4 w-full border-primary text-primary"
-                  onClick={() => window.open("https://resy.com", "_blank")}
-                >
-                  <Phone className="w-4 h-4 mr-2" />
-                  Make a Reservation
-                </Button>
+                <Link to="/reservations" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button
+                    variant="outline"
+                    className="mt-4 w-full border-primary text-primary hover:bg-gold hover:border-gold hover:text-charcoal"
+                  >
+                    <Phone className="w-4 h-4 mr-2" />
+                    Make a Reservation
+                  </Button>
+                </Link>
               </nav>
             </motion.div>
           )}
